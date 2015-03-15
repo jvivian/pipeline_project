@@ -1,10 +1,14 @@
 FROM java
 
 RUN apt-get update
-RUN apt-get install -y mvn git
+RUN apt-get install -y maven git
 
-RUN cd home/
+WORKDIR /home
 RUN git clone https://github.com/broadgsa/gatk-protected/
-RUN cd gatk-protected/
+
+WORKDIR /home/gatk-protected
 RUN mvn package
+
 RUN mv target/GenomeAnalysisTK.jar /home
+
+WORKDIR /home
